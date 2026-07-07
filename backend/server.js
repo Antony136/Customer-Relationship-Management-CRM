@@ -32,10 +32,16 @@ const healthHandler = (req, res) => {
   });
 };
 
-app.get("/", (req, res) => {
-  res.send("Mini CRM API is running...");
-});
+const rootHandler = (req, res) => {
+  if (req.method === "HEAD") {
+    return res.status(200).end();
+  }
 
+  return res.send("Mini CRM API is running...");
+};
+
+app.get("/", rootHandler);
+app.head("/", rootHandler);
 app.get("/api/health", healthHandler);
 app.head("/api/health", healthHandler);
 
